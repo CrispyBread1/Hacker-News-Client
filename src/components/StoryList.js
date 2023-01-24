@@ -1,15 +1,11 @@
 import React from "react";
 import StoryItem from "./StoryItem";
 
-const StoryList = ({stories, foundStory}) => {
+const StoryList = ({stories}) => {
 
-    
     const storyItems = stories.map((story , index) => {
         return <StoryItem story={story} key={index}/>
     })
-
-    console.log(foundStory)
-
 
 
     return (
@@ -18,7 +14,6 @@ const StoryList = ({stories, foundStory}) => {
             <ul>
                 {storyItems}
             </ul>
-            <h4>{foundStory.title}</h4>
         </>
     )
 }

@@ -1,16 +1,15 @@
 import React from "react";
 
 
-const SearchedStory = ({settingSearch, foundStory}) => {
+const SearchedStory = ({settingSearch}) => {
 
     const handleChange =function(event) {
         settingSearch(event.target.value)
     }
-    console.log(foundStory)
 
     return (
         <form>
-            <input label="Search" type="text"  placeholder="Search" onChange={handleChange}/>
+            <input label="Search" type="text"  placeholder="Search" onInput={handleChange}/>
         </form>
     )
 }

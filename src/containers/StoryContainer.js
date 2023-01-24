@@ -6,10 +6,7 @@ const StoryContainer = () => {
 
 
     const [stories, setStories] = useState([])
-    const [foundStory, setFoundStory] = useState([])
-    const [searchText, setSearchText] = useState("")
-    // const [storyListIds, setStoryListIds] = useState([])
-    
+    const [foundStories, setFoundStories] = useState([])
 
     useEffect(() => {
         fetch('https://hacker-news.firebaseio.com/v0/topstories.json')
@@ -19,27 +16,26 @@ const StoryContainer = () => {
         }, [])
 
     const storyPromises = (ids) => { 
-        
         const storyPromise =  ids.map(id => {
-        return fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)
-        .then (res => res.json())})
+        return fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`).then (res => res.json())}
+        )
         Promise.all(storyPromise)
-        .then(data => setStories(data))
+        .then(data => {
+            setStories(data)
+            setFoundStories(data)
+        })
+        
     }
 
     const settingSearch = (search) => {
-        setSearchText(search)
-        setFoundStory(stories.filter((story) => story.title.includes(searchText)))
+        setFoundStories(stories.filter((story) => story.title.toLowerCase().includes(search.toLowerCase())))
     }
-
-
-
 
     return (
         <>
             <h1>Story Container</h1>
-            <SearchedStory settingSearch={settingSearch} foundStory={foundStory}/>
-            <StoryList stories={stories} foundStory={foundStory}/>
+            <SearchedStory settingSearch={settingSearch}/>
+            <StoryList stories={foundStories} />
             
         </>
     )
